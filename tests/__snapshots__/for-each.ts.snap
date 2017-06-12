@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should break loop with callback return false 1`] = `
+Array [
+  "// single-line-comment 1",
+  "/* multi-line-comment 1 */",
+  "// single-line-comment 2",
+  "/* multi-line-comment 2 */",
+  "// single-line-comment 3",
+]
+`;
+
+exports[`should parse correctly with Regex Literal 1`] = `
+Array [
+  "// single-line-comment 1",
+  "/* multi-line-comment 1 */",
+  "// single-line-comment 2",
+  "/* multi-line-comment 2 */",
+  "// single-line-comment 3",
+  "/* multi-line-comment 3 */",
+  "// single-line-comment 4",
+  "/* multi-line-comment 4 */",
+  "// single-line-comment 5",
+  "/* multi-line-comment 5 */",
+]
+`;
+
+exports[`should parse correctly with Template Literal 1`] = `
+Array [
+  "// single-line-comment 1",
+  "/* multi-line-comment 1 */",
+  "// single-line-comment 2",
+  "/* multi-line-comment 2 */",
+  "// single-line-comment 3",
+  "/* multi-line-comment 3 */",
+  "// single-line-comment 4",
+  "/* multi-line-comment 4 */",
+  "// single-line-comment 5",
+  "/* multi-line-comment 5 */",
+]
+`;
+
+exports[`should work correctly with source (SourceFile) 1`] = `
+Array [
+  "// single-line-comment 1",
+  "/* multi-line-comment 1 */",
+  "// single-line-comment 2",
+  "/* multi-line-comment 2 */",
+  "// single-line-comment 3",
+  "/* multi-line-comment 3 */",
+  "// single-line-comment 4",
+  "/* multi-line-comment 4 */",
+  "// single-line-comment 5",
+  "/* multi-line-comment 5 */",
+]
+`;
+
+exports[`should work correctly with source (string) 1`] = `
+Array [
+  "// single-line-comment 1",
+  "/* multi-line-comment 1 */",
+  "// single-line-comment 2",
+  "/* multi-line-comment 2 */",
+  "// single-line-comment 3",
+  "/* multi-line-comment 3 */",
+  "// single-line-comment 4",
+  "/* multi-line-comment 4 */",
+  "// single-line-comment 5",
+  "/* multi-line-comment 5 */",
+]
+`;
