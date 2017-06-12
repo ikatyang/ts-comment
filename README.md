@@ -21,8 +21,26 @@ yarn add ts-comment
 ## Usage
 
 ```ts
-// sample code
+import * as ts_comment from 'ts-comment';
+
+ts_comment.gets(`
+  class X {}
+  // comment 1
+  const y = 0;
+  /* comment 2 */
+  function z() {}
+`); //=> ['// comment 1', '/* comment 2 */']
 ```
+
+## API
+
+- `for_each(source: string | ts.SourceFile, callback: (comment: string, scanner: ts.Scanner, source_file: ts.SourceFile) => boolean | void): void;`
+
+  iterate every comment, return `false` to stop iteration
+
+- `gets<T>(source: string | ts.SourceFile, callback?: (comment: string, scanner: ts.Scanner, source_file: ts.SourceFile) => T): string[] | T[];`
+
+  get comments from source, optional callback for custom results
 
 ## Development
 
