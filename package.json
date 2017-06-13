@@ -1,6 +1,6 @@
 {
   "name": "ts-comment",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "utils for comments in TypeScript/JavaScript file",
   "keywords": [
     "comment",
