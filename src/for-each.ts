@@ -42,7 +42,7 @@ export const for_each = (
       case ts.SyntaxKind.CloseBraceToken: {
         const container = get_node_container(source_file, start, end);
         if (
-          container &&
+          container !== undefined &&
           (container.kind === ts.SyntaxKind.TemplateMiddle ||
             container.kind === ts.SyntaxKind.TemplateTail)
         ) {
@@ -55,7 +55,7 @@ export const for_each = (
       case ts.SyntaxKind.SlashEqualsToken: {
         const container = get_node_container(source_file, start, end);
         if (
-          container &&
+          container !== undefined &&
           container.kind === ts.SyntaxKind.RegularExpressionLiteral
         ) {
           token = scanner.reScanSlashToken();
@@ -91,15 +91,19 @@ function find_container(
 ) {
   const node_start = node.pos;
   const node_end = node.end;
-  if (start >= node_start && end <= node_end) {
-    if (is_token(node)) {
-      callback(node);
-    } else {
-      ts.forEachChild(node, child_node =>
-        find_container(child_node, start, end, callback),
-      );
-    }
+
+  if (start < node_start || end > node_end) {
+    return;
   }
+
+  if (is_token(node)) {
+    callback(node);
+    return;
+  }
+
+  ts.forEachChild(node, child_node =>
+    find_container(child_node, start, end, callback),
+  );
 }
 
 function is_token(node: ts.Node) {
