@@ -54,9 +54,9 @@
     "@types/orchestrator" "*"
     "@types/vinyl" "*"
 
-"@types/jest@19.2.4":
-  version "19.2.4"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-19.2.4.tgz#543651712535962b7dc615e18e4a381fc2687442"
+"@types/jest@20.0.5":
+  version "20.0.5"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-20.0.5.tgz#f463e58b2de6e801f40e33b05db894babdbad98c"
 
 "@types/node@*":
   version "8.0.16"
