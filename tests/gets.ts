@@ -1,4 +1,4 @@
-import {gets} from '../src/index';
+import { gets } from '../src/index';
 
 const content = `
   // comment 1

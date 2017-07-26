@@ -1,13 +1,18 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
-import {for_each} from '../src/index';
+import { for_each } from '../src/index';
 
 const load_fixture = (name: string) =>
   fs.readFileSync(path.resolve(__dirname, `../fixtures/${name}.ts`), 'utf8');
 
 it('should work correctly with source (SourceFile)', () => {
-  const source_file = ts.createSourceFile('', load_fixture('general'), ts.ScriptTarget.Latest, false);
+  const source_file = ts.createSourceFile(
+    '',
+    load_fixture('general'),
+    ts.ScriptTarget.Latest,
+    false,
+  );
   const comments: string[] = [];
   for_each(source_file, comment => {
     comments.push(comment);
@@ -29,7 +34,7 @@ it('should break loop with callback return false', () => {
     comments.push(comment);
 
     // tslint:disable-next-line:no-magic-numbers
-    return (comments.length < 5);
+    return comments.length < 5;
   });
 
   expect(comments).toMatchSnapshot();
