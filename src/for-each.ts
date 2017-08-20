@@ -1,18 +1,22 @@
-import * as ts from 'typescript';
+import * as _ts from 'typescript';
 
 // modified from https://github.com/eslint/typescript-eslint-parser/blob/f5fcc87/lib/convert-comments.js
 
 export type ForEachCallback = ForEachCallbackX<void | boolean>;
 export type ForEachCallbackX<T> = (
   comment: string,
-  scanner: ts.Scanner,
-  source_file: ts.SourceFile,
+  scanner: _ts.Scanner,
+  source_file: _ts.SourceFile,
 ) => T;
 
-export const for_each = (
-  source: string | ts.SourceFile,
+/**
+ * iterate every comment, return `false` to stop iteration
+ */
+export function for_each(
+  source: string | _ts.SourceFile,
   callback: ForEachCallback,
-) => {
+  ts = _ts,
+) {
   const source_file =
     typeof source === 'string'
       ? ts.createSourceFile('', source, ts.ScriptTarget.Latest, false)
@@ -40,7 +44,7 @@ export const for_each = (
         break;
       }
       case ts.SyntaxKind.CloseBraceToken: {
-        const container = get_node_container(source_file, start, end);
+        const container = get_node_container(source_file, start, end, ts);
         if (
           container !== undefined &&
           (container.kind === ts.SyntaxKind.TemplateMiddle ||
@@ -53,7 +57,7 @@ export const for_each = (
       }
       case ts.SyntaxKind.SlashToken:
       case ts.SyntaxKind.SlashEqualsToken: {
-        const container = get_node_container(source_file, start, end);
+        const container = get_node_container(source_file, start, end, ts);
         if (
           container !== undefined &&
           container.kind === ts.SyntaxKind.RegularExpressionLiteral
@@ -69,25 +73,33 @@ export const for_each = (
     }
     token = scanner.scan();
   }
-};
+}
 
 function get_node_container(
-  source_file: ts.SourceFile,
+  source_file: _ts.SourceFile,
   start: number,
   end: number,
+  ts: typeof _ts,
 ) {
-  let container: undefined | ts.Node;
-  find_container(source_file, start, end, target_container => {
-    container = target_container;
-  });
+  let container: undefined | _ts.Node;
+  find_container(
+    source_file,
+    start,
+    end,
+    target_container => {
+      container = target_container;
+    },
+    ts,
+  );
   return container;
 }
 
 function find_container(
-  node: ts.Node,
+  node: _ts.Node,
   start: number,
   end: number,
-  callback: (container: ts.Node) => void,
+  callback: (container: _ts.Node) => void,
+  ts: typeof _ts,
 ) {
   const node_start = node.pos;
   const node_end = node.end;
@@ -96,19 +108,16 @@ function find_container(
     return;
   }
 
-  if (is_token(node)) {
+  const is_token =
+    node.kind >= ts.SyntaxKind.FirstToken &&
+    node.kind <= ts.SyntaxKind.LastToken;
+
+  if (is_token) {
     callback(node);
     return;
   }
 
   ts.forEachChild(node, child_node =>
-    find_container(child_node, start, end, callback),
-  );
-}
-
-function is_token(node: ts.Node) {
-  return (
-    node.kind >= ts.SyntaxKind.FirstToken &&
-    node.kind <= ts.SyntaxKind.LastToken
+    find_container(child_node, start, end, callback, ts),
   );
 }

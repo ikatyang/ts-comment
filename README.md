@@ -36,21 +36,26 @@ ts_comment.gets(file_content); //=> ['// comment 1', '/* comment 2 */']
 
 ## API
 
-- for_each
+```ts
+/**
+ * iterate every comment, return `false` to stop iteration
+ */
+function for_each(
+  source: string | ts.SourceFile,
+  callback: (comment: string, scanner: ts.Scanner, source_file: ts.SourceFile) => boolean | void,
+  ts?: typeof ts,
+): void;
 
-  ```ts
-  (source: string | ts.SourceFile, callback: (comment: string, scanner: ts.Scanner, source_file: ts.SourceFile) => boolean | void): void;
-  ```
-
-  iterate every comment, return `false` to stop iteration
-
-- gets
-
-  ```ts
-  <T>(source: string | ts.SourceFile, callback?: (comment: string, scanner: ts.Scanner, source_file: ts.SourceFile) => T): string[] | T[];
-  ```
-
-  get comments from source, optional callback for custom results
+/**
+ * get comments from source, optional callback for custom results
+ */
+function gets(source: string | ts.SourceFile): string[];
+function gets<T>(
+  source: string | ts.SourceFile,
+  callback: (comment: string, scanner: ts.Scanner, source_file: ts.SourceFile) => T,
+  ts?: typeof ts,
+): T[];
+```
 
 ## Development
 
