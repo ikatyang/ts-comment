@@ -15,6 +15,7 @@ export function gets<T>(
 export function gets(
   source: string | _ts.SourceFile,
   callback: GetsCallback<any> = comment => comment,
+  // istanbul ignore next
   ts = _ts,
 ): any[] {
   const results: any[] = [];
