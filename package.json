@@ -1,6 +1,6 @@
 {
   "name": "ts-comment",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "utils for comments in TypeScript/JavaScript file",
   "keywords": [
     "comment",
@@ -22,7 +22,8 @@
     "lint": "tslint -p ./tsconfig.json --type-check",
     "test": "jest -c ./jest.json",
     "prebuild": "rm -rf ./lib",
-    "build": "tsc -p tsconfig.build.json"
+    "build": "tsc -p tsconfig.build.json",
+    "release": "standard-version"
   },
   "dependencies": {
     "typescript": "^2.4.0"
@@ -33,6 +34,7 @@
     "jest": "20.0.4",
     "prettier": "1.5.3",
     "prettier-config-ikatyang": "1.1.1",
+    "standard-version": "4.2.0",
     "ts-jest": "20.0.10",
     "tslint": "5.6.0",
     "tslint-config-ikatyang": "2.2.0",
